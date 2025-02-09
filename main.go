@@ -1,22 +1,22 @@
 package main
 
 import (
+	"log"
 	"orderfoodonline/config"
 	"orderfoodonline/routes"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-	// Load environment variables
-	config.LoadEnv()
+	cfg := config.LoadConfig()
 
-	// Create a new Fiber app
-	app := fiber.New()
+	db := config.InitDB(cfg)
 
-	// Setup routes
-	routes.SetupRoutes(app)
+	// Run Migration
+	config.RunMigration(db)
 
-	// Start the server
-	app.Listen(":3000")
+	// Initialize Router
+	r := routes.SetupRouter(db)
+
+	log.Printf("Server is running on port %s", cfg.ServerPort)
+	r.Run(":" + cfg.ServerPort)
 }
