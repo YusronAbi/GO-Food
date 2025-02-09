@@ -22,7 +22,6 @@ func NewPaymentRoutes(router *gin.Engine, paymentController *controllers.Payment
 func (r *PaymentRoutes) Setup() {
 	paymentGroup := r.router.Group("/api/payments")
 	{
-		// Protected routes
 		authorized := paymentGroup.Use(middlewares.AuthMiddleware())
 		{
 			authorized.POST("", r.paymentController.ProcessPayment)
@@ -31,7 +30,6 @@ func (r *PaymentRoutes) Setup() {
 			authorized.POST("/:id/proof", r.paymentController.UploadPaymentProof)
 		}
 
-		// Admin routes
 		admin := paymentGroup.Use(middlewares.AuthMiddleware(), middlewares.AdminMiddleware())
 		{
 			admin.GET("", r.paymentController.GetAllPayments)
