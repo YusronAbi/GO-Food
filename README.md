@@ -1,16 +1,20 @@
 # Sistem Pemesanan Makanan Online
 
-Sistem Pemesanan Makananan Online yang memungkinkan pengguna untuk menjelajahi produk, membuat pesanan, dan melakukan pembayaran secara efisien. 
+Sistem Pemesanan Makanan Online  yang memungkinkan pengguna untuk memesan makanan secara online. Pengguna dapat melihat menu, menambahkan item ke keranjang, melakukan pemesanan, dan melakukan pembayaran.
 
 ## Fitur
 
-- **Pendaftaran dan Login Pengguna**: Pengguna dapat mendaftar dan masuk ke sistem untuk mengakses fitur pemesanan.
-- **Menjelajahi Produk**: Pengguna dapat melihat daftar produk yang tersedia dengan detail seperti nama, deskripsi, harga, dan stok.
-- **Keranjang Belanja**: Pengguna dapat menambahkan produk ke keranjang belanja sebelum melakukan pemesanan.
-- **Membuat Pesanan**: Pengguna dapat membuat pesanan yang mencakup beberapa item.
-- **Rincian Item Pesanan**: Setiap pesanan menyimpan rincian produk yang dipesan, termasuk jumlah dan harga.
-- **Pembayaran**: Pengguna dapat melakukan pembayaran untuk menyelesaikan transaksi.
-- **Pelacakan Status Pesanan**: Pengguna dapat melacak status pesanan mereka.
+- **Autentikasi Pengguna**: Pengguna dapat mendaftar dan masuk ke dalam sistem.
+- **Menu Makanan**: Pengguna dapat melihat daftar makanan yang tersedia.
+- **Keranjang Belanja**: Pengguna dapat menambahkan item ke keranjang dan mengubah jumlah item.
+- **Pemesanan**: Pengguna dapat melakukan pemesanan dan melihat status pesanan.
+- **Pembayaran**: Pengguna dapat melakukan pembayaran untuk pesanan mereka.
+
+## Teknologi yang Digunakan
+
+- **Bahasa Pemrograman**: Go (Golang)
+- **Framework**: GORM (untuk ORM)
+- **Database**:  MySQL 
 
 
 
@@ -20,8 +24,4 @@ Berikut adalah diagram hubungan entitas (ERD) untuk sistem pemesanan online:
 ![Image](https://github.com/user-attachments/assets/485f3473-15fa-425a-aa94-03da857f1f67)
 
 
-## Instalasi
 
-1. Clone repositori ini ke mesin lokal Anda:
-   ```bash
-   git clone https://github.com/username/repo-name.git
