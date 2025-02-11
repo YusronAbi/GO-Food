@@ -1,32 +1,36 @@
 package config
 
 import (
-	"github.com/spf13/viper"
+	"log"
+
+	"github.com/caarlos0/env"
+	"github.com/joho/godotenv"
 )
 
-type Config struct {
-	DBHost     string `mapstructure:"DB_HOST"`
-	DBPort     string `mapstructure:"DB_PORT"`
-	DBUser     string `mapstructure:"DB_USER"`
-	DBPassword string `mapstructure:"DB_PASSWORD"`
-	DBName     string `mapstructure:"DB_NAME"`
-	ServerPort string `mapstructure:"SERVER_PORT"`
-	JWTSecret  string `mapstructure:"JWT_SECRET"`
+// EnvConfig menyimpan konfigurasi aplikasi
+type EnvConfig struct {
+	ServerPort string `env:"SERVER_PORT" envDefault:"8080"`
+	DBHost     string `env:"DB_HOST,required"`
+	DBName     string `env:"DB_NAME,required"`
+	DBUser     string `env:"DB_USER,required"`
+	DBPassword string `env:"DB_PASSWORD,required"`
+	DBSSLMode  string `env:"DB_SSLMODE" envDefault:"disable"`
 }
 
-func LoadConfig() *Config {
-	viper.SetConfigFile(".env")
-	viper.AutomaticEnv()
-
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(err)
+// LoadEnv membaca file .env
+func LoadEnv() {
+	if err := godotenv.Load(); err != nil {
+		log.Println("Warning: .env file not found, using system environment variables")
 	}
+}
 
-	config := &Config{}
-	err = viper.Unmarshal(config)
-	if err != nil {
-		panic(err)
+// NewEnvConfig menginisialisasi dan mem-parsing konfigurasi dari environment
+func NewEnvConfig() *EnvConfig {
+	LoadEnv() // Load .env file
+
+	config := &EnvConfig{}
+	if err := env.Parse(config); err != nil {
+		log.Fatalf("Error parsing environment variables: %v", err)
 	}
 
 	return config
