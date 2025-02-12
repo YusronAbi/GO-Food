@@ -1,17 +1,18 @@
-package routes
+package router
 
 import (
+	"orderfoodonline/controller"
 	"orderfoodonline/middlewares"
 
 	"github.com/gin-gonic/gin"
 )
 
 type OrderRoutes struct {
-	orderController *controllers.OrderController
+	orderController *controller.OrderController
 	router          *gin.Engine
 }
 
-func NewOrderRoutes(router *gin.Engine, orderController *controllers.OrderController) *OrderRoutes {
+func NewOrderRoutes(router *gin.Engine, orderController *controller.OrderController) *OrderRoutes {
 	return &OrderRoutes{
 		orderController: orderController,
 		router:          router,
