@@ -47,6 +47,5 @@ func main() {
 		})
 	})
 
-	// Jalankan server pada port 8080
 	r.Run(":8080")
 }
