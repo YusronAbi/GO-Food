@@ -1,4 +1,4 @@
-package models
+package entity
 
 import (
 	"time"
@@ -26,7 +26,6 @@ type OrderItem struct {
 	ID        uint    `gorm:"primaryKey" json:"id"`
 	OrderID   uint    `json:"order_id"`
 	ProductID uint    `json:"product_id"`
-	Product   Product `json:"product" gorm:"foreignKey:ProductID"`
 	Quantity  int     `json:"quantity" binding:"required,gt=0"`
 	Price     float64 `json:"price"`
 	Subtotal  float64 `json:"subtotal"`
