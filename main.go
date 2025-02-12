@@ -25,7 +25,7 @@ func main() {
 
 	// Inisialisasi service
 	authService := service.NewAuthService(authRepo)
-	menuService := service.NewMenuService(menuRepo) // Sesuaikan dengan nama yang benar
+	menuService := service.NewMenuService(menuRepo)
 	cartService := service.NewCartService(cartRepo)
 	orderService := service.NewOrderService(orderRepo)
 
