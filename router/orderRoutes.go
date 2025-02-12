@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"orderfoodonline/controllers"
 	"orderfoodonline/middlewares"
 
 	"github.com/gin-gonic/gin"

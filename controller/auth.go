@@ -1,9 +1,7 @@
 package controller
 
 import (
-	"OrderFoodOnline/dto"
 	"net/http"
-	"orderfoodonline/service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"

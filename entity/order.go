@@ -14,7 +14,7 @@ type Order struct {
 	TotalAmount float64        `json:"total_amount"`
 	Status      string         `json:"status" gorm:"default:'pending'"`
 	PaymentID   *uint          `json:"payment_id"`
-	Payment     *Payment       `json:"payment,omitempty" gorm:"foreignKey:PaymentID"`
+	Payment     bool           `gorm:"default:false"`
 	Address     string         `json:"delivery_address"`
 	Notes       string         `json:"notes"`
 	CreatedAt   time.Time      `json:"created_at"`

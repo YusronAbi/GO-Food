@@ -1,22 +1,52 @@
 package main
 
 import (
-	"log"
 	"orderfoodonline/config"
-	"orderfoodonline/routes"
+	"orderfoodonline/database"
+	"orderfoodonline/repository"
+	"orderfoodonline/router"
+	"orderfoodonline/service"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	cfg := config.LoadConfig()
+	// Load konfigurasi dari environment
+	cfg := config.NewEnvConfig()
 
-	db := config.InitDB(cfg)
+	// Inisialisasi database
+	db := database.Init(cfg, database.DBMigrator)
 
-	// Run Migration
-	config.RunMigration(db)
+	// Inisialisasi repository
+	authRepo := repository.NewAuthRepository(db)
+	menuRepo := repository.NewMenuRepository(db)
+	cartRepo := repository.NewCartRepository(db)
+	orderRepo := repository.NewOrderRepository(db)
 
-	// Initialize Router
-	r := routes.SetupRouter(db)
+	// Inisialisasi service
+	authService := service.NewAuthService(authRepo)
+	menuService := service.NewMenuService(menuRepo) // Sesuaikan dengan nama yang benar
+	cartService := service.NewCartService(cartRepo)
+	orderService := service.NewOrderService(orderRepo)
 
-	log.Printf("Server is running on port %s", cfg.ServerPort)
-	r.Run(":" + cfg.ServerPort)
+	// Inisialisasi router
+	r := gin.Default()
+	router.SetupAuthRouter(r, authService)
+	router.SetupUserRouter(r, db)
+	router.SetupMenuRouter(r, db)
+	router.SetupCartRouter(r, db, menuService, cartService)
+	router.SetupOrderRouter(r, db, cartService)
+	router.SetupReportRouter(r, db, orderService, orderRepo, cartRepo)
+
+	// Endpoint root
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"App Name": "Shop App",
+			"Author":   "Junx",
+			"Version":  "1.0.0",
+		})
+	})
+
+	// Jalankan server pada port 8080
+	r.Run(":8080")
 }
